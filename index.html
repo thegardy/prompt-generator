@@ -78,7 +78,6 @@
                 "length-type length-value content-type"
                 "format target-audience about"
                 "inclusion exclusion input-data"
-                "prompt-output prompt-output prompt-output" /* Correctly spans all columns */
                 "buttons buttons buttons";
             gap: 20px;
         }
@@ -159,7 +158,6 @@
                 "inclusion"
                 "exclusion"
                 "input-data"
-                "prompt-output"
                 "buttons";
           }
         }
@@ -492,12 +490,12 @@
                 <label for="inputData">Input Data:</label>
                 <textarea id="inputData" placeholder="Enter any additional input data"></textarea>
             </div>
-
-            <div class="prompt-output">
-                <label for="promptOutput">Generated Prompt:</label>
-                <textarea id="promptOutput" placeholder="Your generated prompt will appear here" rows="5"></textarea>
-            </div>
         
+        </div>
+        
+        <div class="prompt-output">
+            <label for="promptOutput">Generated Prompt:</label>
+            <textarea id="promptOutput" placeholder="Your generated prompt will appear here" rows="5"></textarea>
         </div>
 
         <div class="button-container">
