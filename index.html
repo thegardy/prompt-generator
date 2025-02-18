@@ -154,6 +154,12 @@
                 "buttons";
           }
         }
+        #inputData,
+        #promptOutput {
+            resize: vertical; /* Allow only vertical resizing */
+            max-width: 100%;  /* Prevent horizontal overflow */
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
@@ -484,7 +490,7 @@
                 <textarea id="inputData" placeholder="Enter any additional input data"></textarea>
             </div>
 
-        <div class="prompt-putput">
+        <div class="prompt-output">
             <label for="promptOutput">Generated Prompt:</label>
             <textarea id="promptOutput" placeholder="Your generated prompt will appear here" rows="5"></textarea>
         </div>
