@@ -6,74 +6,149 @@
     <title>Prompt Generator</title>
     <style>
         body {
-            font-family: sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern, clean font */
+            margin: 0; /* Remove default body margin */
+            background-color: #f2f2f2; /* Light gray background */
+            color: #333; /* Dark gray text for good contrast */
+            line-height: 1.6; /* Improve readability */
         }
-
-        label {
-            display: block;
-            margin-top: 10px;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        select, textarea, input[type="text"] {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        #promptOutput {
-            background-color: #eef;
-            padding: 10px;
-            border: 1px solid #888;
-            margin-bottom: 10px;
-            white-space: pre-wrap; /* Preserve line breaks and spaces */
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
+    
         .container {
             background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            max-width: 800px; /* Limit width for readability */
-            margin: 0 auto; /* Center the container */
+            padding: 30px; /* More padding */
+            border-radius: 12px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            max-width: 800px;
+            margin: 40px auto; /* Center and add top/bottom margin */
+            border: 1px solid #ddd; /* Light border */
         }
+    
+        h1 {
+            color: #0056b3; /* Dark blue heading */
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5em; /* Larger heading */
+        }
+    
+        p {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #555;
+        }
+    
+        .input-group {
+            margin-bottom: 20px; /* More spacing between input groups */
+        }
+    
+        label {
+            display: block;
+            margin-bottom: 8px; /* More space below labels */
+            font-weight: bold;
+            color: #0056b3; /* Dark blue labels */
+        }
+        /* Style for dropdown and selection */
+        select,
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 12px; /* Larger padding */
+            margin-bottom: 15px; /* More space below inputs */
+            border: 1px solid #ccc;
+            border-radius: 6px; /* Rounded corners */
+            box-sizing: border-box;
+            font-size: 16px; /* Larger font size */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+        }
+    
+        select:focus,
+        input[type="text"]:focus,
+        textarea:focus {
+            border-color: #007bff; /* Blue focus border */
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Focus glow */
+        }
+    
+        #promptOutput {
+            background-color: #e9ecef; /* Light gray output */
+            padding: 15px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+            font-size: 16px;
+        }
+    
+        /* Flex container for buttons */
+        .button-container {
+            display: flex;
+            justify-content: space-between; /* Space out buttons */
+            gap: 10px; /* Add gap between buttons (if needed) */
+            margin-bottom: 20px;
+        }
+    
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease; /* Smooth hover effect */
+            flex: 1;  /*  Buttons take up equal width*/
+            font-weight: bold; /* Make button text bold */
+        }
+    
+    
+        #generateButton {
+            background-color: #007bff; /* Blue generate button */
+            color: white;
+        }
+    
+        #generateButton:hover {
+            background-color: #0056b3;
+        }
+    
+        #clearButton {
+            background-color: #dc3545; /* Red clear button */
+            color: white;
+        }
+    
+        #clearButton:hover {
+            background-color: #c82333;
+        }
+    
+        #copyButton {
+            background-color: #28a745; /* Green copy button */
+            color: white;
+        }
+    
+        #copyButton:hover {
+            background-color: #218838;
+        }
+    
         .row-container{
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
             gap: 10px;
-
+    
         }
-        .input-group {
-            margin-bottom: 15px; /* Add some spacing between input groups */
-        }
-        
-        #clearButton { /* Style specifically for the clear button */
-        background-color: #f44336; /* Red color */
-        }
-        #clearButton:hover {
-            background-color: #d32f2f;
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 20px auto;
+            }
+            .row-container{
+                flex-direction: column;
+            }
+            h1 {
+                font-size: 2em;
+            }
+    
+            button {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -407,14 +482,15 @@
             <textarea id="inputData" placeholder="Enter any additional input data"></textarea>
         </div>
 
-        <button id="clearButton">Clear</button>
-
-        <button id="generateButton">Generate Prompt</button>
-
         <label for="promptOutput">Generated Prompt:</label>
         <textarea id="promptOutput" placeholder="Your generated prompt will appear here" rows="5"></textarea>
+        
+        <div class="button-container">
+            <button id="clearButton">Clear</button>
+            <button id="generateButton">Generate Prompt</button>
+            <button id="copyButton">Copy to Clipboard</button>
+        </div>
 
-        <button id="copyButton">Copy to Clipboard</button>
     </div>
 
     <script>
