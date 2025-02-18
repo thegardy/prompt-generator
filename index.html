@@ -628,28 +628,35 @@
         document.getElementById('clearButton').addEventListener('click', clearInputs);
 
         function clearInputs() {
-            // Clear text inputs
-            document.getElementById('role-input').value = '';
-            document.getElementById('tone-input').value = '';
-            document.getElementById('instruction-input').value = '';
-            document.getElementById('length-type-input').value = '';
-            document.getElementById('length-value').value = '';
-            document.getElementById('content-type-input').value = '';
-            document.getElementById('format-input').value = '';
-            document.getElementById('targetAudience').value = '';
-            document.getElementById('about').value = '';
-            document.getElementById('inclusion').value = '';
-            document.getElementById('exclusion').value = '';
-            document.getElementById('inputData').value = '';
-            document.getElementById('promptOutput').value = '';
+        // Clear text inputs
+        document.getElementById('role-input').value = '';
+        document.getElementById('tone-input').value = '';
+        document.getElementById('instruction-input').value = '';
+        document.getElementById('length-type-input').value = '';
+        document.getElementById('length-value').value = '';
+        document.getElementById('content-type-input').value = '';
+        document.getElementById('format-input').value = '';
+        document.getElementById('targetAudience').value = '';
+        document.getElementById('about').value = '';
+        document.getElementById('inclusion').value = '';
+        document.getElementById('exclusion').value = '';
+        document.getElementById('inputData').value = '';
+        document.getElementById('promptOutput').value = '';
 
-            // Reset dropdowns to their default selected option
-            document.getElementById('role').selectedIndex = 0;
-            document.getElementById('tone').selectedIndex = 0;
-            document.getElementById('instruction').selectedIndex = 0;
-            document.getElementById('length-type').selectedIndex = 0;
-            document.getElementById('contentType').selectedIndex = 0;
-            document.getElementById('format').selectedIndex = 0;
+        // Reset dropdowns to their default selected option AND hide inputs
+        const selects = ['role', 'tone', 'instruction', 'length-type', 'contentType', 'format'];
+        selects.forEach(id => {
+            const selectElement = document.getElementById(id);
+            selectElement.selectedIndex = 0; // Reset to the first option
+            //Crucially, call toggleInput to update visibility
+            toggleInput(selectElement, document.getElementById(id + '-input'));
+        });
+        document.getElementById('role').value = "";
+        document.getElementById('tone').value = "";
+        document.getElementById('instruction').value = "";
+        document.getElementById('length-type').value = "";
+        document.getElementById('contentType').value = "";
+        document.getElementById('format').value = "";
         }
     </script>
 </body>
