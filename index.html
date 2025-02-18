@@ -565,39 +565,71 @@
 
         function generatePrompt() {
             // Get values from dropdowns and input fields, handling custom inputs
-            const role = document.getElementById('role-input').value || document.getElementById('role').value;
-            const tone = document.getElementById('tone-input').value || document.getElementById('tone').value;
-            const instruction = document.getElementById('instruction-input').value || document.getElementById('instruction').value;
-            
+            let role = document.getElementById('role-input').value || document.getElementById('role').value;
+            let tone = document.getElementById('tone-input').value || document.getElementById('tone').value;
+            let instruction = document.getElementById('instruction-input').value || document.getElementById('instruction').value;
             let lengthType = document.getElementById('length-type-input').value || document.getElementById('length-type').value;
             const lengthValue = document.getElementById('length-value').value;
-
-            if (lengthValue && !lengthType.startsWith("N ")) {
-              lengthType = lengthValue + " " + lengthType;
-            }
-            else if(lengthValue && lengthType.startsWith("N "))
-            {
-                lengthType = lengthType.replace("N ", lengthValue + " ");
-            }
-            
-
-            const contentType = document.getElementById('content-type-input').value || document.getElementById('contentType').value;
-            const format = document.getElementById('format-input').value || document.getElementById('format').value;
+            let contentType = document.getElementById('content-type-input').value || document.getElementById('contentType').value;
+            let format = document.getElementById('format-input').value || document.getElementById('format').value;
             const targetAudience = document.getElementById('targetAudience').value;
             const about = document.getElementById('about').value;
             const inclusion = document.getElementById('inclusion').value;
             const exclusion = document.getElementById('exclusion').value;
             const inputData = document.getElementById('inputData').value;
-
-
-
-            let prompt = `Act as ${role}, use ${tone} tone, ${instruction} `;
-            if(lengthType)
-            {
-                prompt += `a ${lengthType} `;
+        
+            // --- Grammatical Adjustments ---
+        
+            // 1. Role: Add "a" or "an" as needed.
+            let article = "a";
+            if (role) {
+                const vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
+                if(role == "Expert" || role == "expert")
+                {
+                    article = "an";
+                }
+                else if (vowels.includes(role[0])) {
+                    article = "an"; //Starts with a vowel
+                }
+                role = `${article} ${role}`;
             }
-            
-            prompt += `${contentType}, for ${targetAudience}. `;
+        
+            // 2. Length Type: Handle "N" and construct the length phrase.
+           if (lengthValue && !lengthType.startsWith("N ")) {
+                lengthType = lengthValue + " " + lengthType;
+            }
+            else if(lengthValue && lengthType.startsWith("N "))
+            {
+                lengthType = lengthType.replace("N ", lengthValue + " ");
+            }
+        
+            // 3.  Content type:  Add article
+        
+            if(contentType)
+            {
+                article = "a";
+                const vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
+                if (vowels.includes(contentType[0])) {
+                    article = "an"; //Starts with a vowel
+                }
+                if(!lengthType) //If there isn't a length, make sure it is added to the content type
+                {
+                    contentType = `${article} ${contentType}`
+                }
+            }
+        
+            // --- Construct the Prompt ---
+            let prompt = `Act as ${role}, use ${tone} tone, ${instruction} `;
+        
+             if (lengthType) {
+                prompt += `a ${lengthType} `;  // Length *before* content type
+            }
+            if(contentType)
+            {
+                prompt += `${contentType}`
+            }
+            prompt += `, for ${targetAudience}. `;
+        
             if (about) {
                 prompt += `It should be about ${about}. `;
             }
@@ -607,17 +639,14 @@
             if (exclusion) {
                 prompt += `Exclude ${exclusion}. `;
             }
-           
             prompt += `Return the output as ${format}.`;
-
+        
             if (inputData) {
                 prompt += ` Use the following information: ${inputData}`;
             }
-
-
+        
             document.getElementById('promptOutput').value = prompt;
         }
-
 
         function copyToClipboard() {
             const output = document.getElementById('promptOutput');
