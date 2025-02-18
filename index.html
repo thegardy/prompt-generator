@@ -6,83 +6,96 @@
     <title>Prompt Generator</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern, clean font */
-            margin: 0; /* Remove default body margin */
-            background-color: #f2f2f2; /* Light gray background */
-            color: #333; /* Dark gray text for good contrast */
-            line-height: 1.6; /* Improve readability */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #2b2b2b; /* Dark gray background */
+            color: #eee; /* Light gray text for good contrast */
+            line-height: 1.6;
         }
     
         .container {
-            background-color: white;
-            padding: 30px; /* More padding */
-            border-radius: 12px; /* Rounded corners */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            background-color: #333; /* Slightly lighter gray container */
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Darker shadow */
             max-width: 800px;
-            margin: 40px auto; /* Center and add top/bottom margin */
-            border: 1px solid #ddd; /* Light border */
+            margin: 40px auto;
+            border: 1px solid #555; /* Darker border */
         }
     
         h1 {
-            color: #0056b3; /* Dark blue heading */
+            color: #4CAF50; /* Keep a distinct color (Green), good contrast on dark */
             text-align: center;
             margin-bottom: 20px;
-            font-size: 2.5em; /* Larger heading */
+            font-size: 2.5em;
         }
     
         p {
             text-align: center;
             margin-bottom: 30px;
-            color: #555;
+            color: #ccc; /* Slightly darker than body text for subtle difference */
         }
     
         .input-group {
-            margin-bottom: 20px; /* More spacing between input groups */
+            margin-bottom: 20px;
+        }
+    
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+    
+         #promptOutput {
+          grid-column: 1 / -1;
         }
     
         label {
             display: block;
-            margin-bottom: 8px; /* More space below labels */
+            margin-bottom: 8px;
             font-weight: bold;
-            color: #0056b3; /* Dark blue labels */
+            color: #4CAF50; /* Green labels, good contrast */
         }
-        /* Style for dropdown and selection */
+    
         select,
         input[type="text"],
         textarea {
             width: 100%;
-            padding: 12px; /* Larger padding */
-            margin-bottom: 15px; /* More space below inputs */
-            border: 1px solid #ccc;
-            border-radius: 6px; /* Rounded corners */
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #555; /* Darker border */
+            border-radius: 6px;
             box-sizing: border-box;
-            font-size: 16px; /* Larger font size */
-            transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+            font-size: 16px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background-color: #444; /* Darker input background */
+            color: #eee; /* Light text in inputs */
         }
+    
     
         select:focus,
         input[type="text"]:focus,
         textarea:focus {
-            border-color: #007bff; /* Blue focus border */
+            border-color: #4CAF50; /* Green focus border */
             outline: none;
-            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Focus glow */
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.25); /* Focus glow (green) */
         }
     
         #promptOutput {
-            background-color: #e9ecef; /* Light gray output */
+            background-color: #3c3c3c; /* Darker output background */
             padding: 15px;
-            border: 1px solid #ced4da;
+            border: 1px solid #666; /* Darker border */
             border-radius: 6px;
             margin-bottom: 20px;
             white-space: pre-wrap;
             font-size: 16px;
+            color: #eee; /* Light text */
         }
     
-        /* Flex container for buttons */
         .button-container {
             display: flex;
-            justify-content: space-between; /* Space out buttons */
-            gap: 10px; /* Add gap between buttons (if needed) */
+            justify-content: space-between;
+            gap: 10px;
             margin-bottom: 20px;
         }
     
@@ -92,37 +105,37 @@
             border-radius: 6px;
             cursor: pointer;
             font-size: 16px;
-            transition: background-color 0.3s ease; /* Smooth hover effect */
-            flex: 1;  /*  Buttons take up equal width*/
-            font-weight: bold; /* Make button text bold */
+            transition: background-color 0.3s ease;
+            flex: 1;
+            font-weight: bold;
         }
     
-    
         #generateButton {
-            background-color: #007bff; /* Blue generate button */
-            color: white;
+             background-color: #4CAF50; /* Keep green, good contrast */
+             color: white;
         }
     
         #generateButton:hover {
-            background-color: #0056b3;
+            background-color: #367c39; /* Darker green on hover */
         }
     
         #clearButton {
-            background-color: #dc3545; /* Red clear button */
+            background-color: #f44336; /* Keep red */
             color: white;
         }
     
         #clearButton:hover {
-            background-color: #c82333;
+            background-color: #d32f2f;
         }
     
         #copyButton {
-            background-color: #28a745; /* Green copy button */
-            color: white;
+          background-color: #007bff; /* Blue for copy button */
+          color: white;
+    
         }
     
         #copyButton:hover {
-            background-color: #218838;
+            background-color: #0056b3; /* Darker blue */
         }
     
         .row-container{
@@ -131,17 +144,14 @@
             justify-content: space-between;
             align-items: center;
             gap: 10px;
-    
         }
-        /* Responsive adjustments */
+    
         @media (max-width: 768px) {
             .container {
                 padding: 20px;
                 margin: 20px auto;
             }
-            .row-container{
-                flex-direction: column;
-            }
+    
             h1 {
                 font-size: 2em;
             }
@@ -149,14 +159,22 @@
             button {
                 font-size: 14px;
             }
+    
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .row-container{
+              flex-direction: column;
+            }
         }
+    
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Prompt Generator</h1>
         <p>Use the dropdowns and input fields below to construct a prompt based on the "Gyula Rabai's ChatGPT Cheat Sheet" structure.</p>
-
+        <div class="form-grid">
         <div class="input-group">
             <label for="role">Role:</label>
             <input type="text" id="role-input" placeholder="Or enter a custom role">
@@ -490,7 +508,7 @@
             <button id="generateButton">Generate Prompt</button>
             <button id="copyButton">Copy to Clipboard</button>
         </div>
-
+        </div>
     </div>
 
     <script>
