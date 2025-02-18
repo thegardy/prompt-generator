@@ -8,97 +8,119 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            background-color: #2b2b2b; /* Dark gray background */
-            color: #eee; /* Light gray text for good contrast */
+            background-color: #2b2b2b;
+            color: #eee;
             line-height: 1.6;
         }
-    
+
         .container {
-            background-color: #333; /* Slightly lighter gray container */
+            background-color: #333;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Darker shadow */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             max-width: 800px;
             margin: 40px auto;
-            border: 1px solid #555; /* Darker border */
+            border: 1px solid #555;
         }
-    
+
         h1 {
-            color: #4CAF50; /* Keep a distinct color (Green), good contrast on dark */
+            color: #4CAF50;
             text-align: center;
             margin-bottom: 20px;
             font-size: 2.5em;
         }
-    
+
         p {
             text-align: center;
             margin-bottom: 30px;
-            color: #ccc; /* Slightly darker than body text for subtle difference */
+            color: #ccc;
         }
-    
+
         .input-group {
             margin-bottom: 20px;
         }
-    
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-    
-         #promptOutput {
-          grid-column: 1 / -1;
-        }
-    
+
         label {
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
-            color: #4CAF50; /* Green labels, good contrast */
+            color: #4CAF50;
         }
-    
+
         select,
         input[type="text"],
         textarea {
             width: 100%;
             padding: 12px;
             margin-bottom: 15px;
-            border: 1px solid #555; /* Darker border */
+            border: 1px solid #555;
             border-radius: 6px;
             box-sizing: border-box;
             font-size: 16px;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            background-color: #444; /* Darker input background */
-            color: #eee; /* Light text in inputs */
+            background-color: #444;
+            color: #eee;
         }
-    
-    
+
         select:focus,
         input[type="text"]:focus,
         textarea:focus {
-            border-color: #4CAF50; /* Green focus border */
+            border-color: #4CAF50;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.25); /* Focus glow (green) */
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.25);
         }
-    
+
         #promptOutput {
-            background-color: #3c3c3c; /* Darker output background */
+            background-color: #3c3c3c;
             padding: 15px;
-            border: 1px solid #666; /* Darker border */
+            border: 1px solid #666;
             border-radius: 6px;
             margin-bottom: 20px;
             white-space: pre-wrap;
             font-size: 16px;
-            color: #eee; /* Light text */
+            color: #eee;
         }
-    
+
+
+        /* --- GRID LAYOUT --- */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two columns */
+            grid-template-areas: /* Define named areas */
+                "role tone"
+                "instruction length-type"
+                "content-type format"
+                "target-audience about"
+                "inclusion exclusion"
+                "input-data input-data"
+                "prompt-output prompt-output"
+                "buttons buttons";
+            gap: 20px;
+        }
+
+        /* Assign elements to grid areas */
+        .role { grid-area: role; }
+        .tone { grid-area: tone; }
+        .instruction { grid-area: instruction; }
+        .length-type { grid-area: length-type; } /*Both length fields in ONE area */
+        .content-type { grid-area: content-type; }
+        .format { grid-area: format; }
+        .target-audience { grid-area: target-audience; }
+        .about { grid-area: about; }
+        .inclusion { grid-area: inclusion; }
+        .exclusion { grid-area: exclusion; }
+        .input-data { grid-area: input-data; }
+        #promptOutput { grid-area: prompt-output; } /* Use ID selector for textarea */
+        .button-container { grid-area: buttons; }
+
+
         .button-container {
             display: flex;
             justify-content: space-between;
             gap: 10px;
             margin-bottom: 20px;
         }
-    
+
         button {
             padding: 12px 20px;
             border: none;
@@ -109,406 +131,422 @@
             flex: 1;
             font-weight: bold;
         }
-    
+
         #generateButton {
-             background-color: #4CAF50; /* Keep green, good contrast */
-             color: white;
-        }
-    
-        #generateButton:hover {
-            background-color: #367c39; /* Darker green on hover */
-        }
-    
-        #clearButton {
-            background-color: #f44336; /* Keep red */
+            background-color: #4CAF50;
             color: white;
         }
-    
+
+        #generateButton:hover {
+            background-color: #367c39;
+        }
+
+        #clearButton {
+            background-color: #f44336;
+            color: white;
+        }
+
         #clearButton:hover {
             background-color: #d32f2f;
         }
-    
+
         #copyButton {
-          background-color: #007bff; /* Blue for copy button */
-          color: white;
-    
+            background-color: #007bff;
+            color: white;
         }
-    
+
         #copyButton:hover {
-            background-color: #0056b3; /* Darker blue */
+            background-color: #0056b3;
         }
-    
-        .row-container{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-        }
-    
+        /* --- RESPONSIVE --- */
+
         @media (max-width: 768px) {
             .container {
                 padding: 20px;
                 margin: 20px auto;
             }
-    
+
             h1 {
                 font-size: 2em;
             }
-    
+
             button {
                 font-size: 14px;
             }
-    
+
+            /* Redefine grid areas for single column */
             .form-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr; /* Single column */
+                grid-template-areas:
+                    "role"
+                    "tone"
+                    "instruction"
+                    "length-type"
+                    "content-type"
+                    "format"
+                    "target-audience"
+                    "about"
+                    "inclusion"
+                    "exclusion"
+                    "input-data"
+                    "prompt-output"
+                    "buttons";
             }
-            .row-container{
+             .row-container{
               flex-direction: column;
             }
         }
-    
+       .row-container{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Prompt Generator</h1>
         <p>Use the dropdowns and input fields below to construct a prompt based on the "Gyula Rabai's ChatGPT Cheat Sheet" structure.</p>
+        
         <div class="form-grid">
-        <div class="input-group">
-            <label for="role">Role:</label>
-            <input type="text" id="role-input" placeholder="Or enter a custom role">
-            <select id="role">
-                <option value="" selected>-- Select or Enter a Role --</option>
-                <option value="Professional">Professional</option>
-                <option value="Expert">Expert</option>
-                <option value="Friend">Friend</option>
-                <option value="Copywriter">Copywriter</option>
-                <option value="Creative Writer">Creative Writer</option>
-                <option value="Sales Coach">Sales Coach</option>
-                <option value="Marketing Coach">Marketing Coach</option>
-                <option value="Tech consultant">Tech consultant</option>
-                <option value="Life Coach">Life Coach</option>
-                <option value="Data analyst">Data analyst</option>
-                <option value="Influencer">Influencer</option>
-                <option value="Language Tutor">Language Tutor</option>
-                <option value="Fitness Trainer">Fitness Trainer</option>
-                <option value="Recipe Guru">Recipe Guru</option>
-                <option value="Financial Advisor">Financial Advisor</option>
-                <option value="Therapist">Therapist</option>
-                <option value="Storyteller">Storyteller</option>
-                <option value="Event Planner">Event Planner</option>
-                <option value="Tech Support">Tech Support</option>
-                <option value="Study Buddy">Study Buddy</option>
-                <option value="Music Composer">Music Composer</option>
-                <option value="Film Critic">Film Critic</option>
-                <option value="Fitness Nutritionist">Fitness Nutritionist</option>
-                <option value="Pet Trainer">Pet Trainer</option>
-                <option value="Moderator">Moderator</option>
-                <option value="Motivational Speaker">Motivational Speaker</option>
-                <option value="History Professor">History Professor</option>
-                <option value="Science Educator">Science Educator</option>
-                <option value="Art Critic">Art Critic</option>
-                <option value="Detective">Detective</option>
-                <option value="Mythology Expert">Mythology Expert</option>
-                <option value="Travel Planner">Travel Planner</option>
-                <option value="Travel Photographer">Travel Photographer</option>
-                <option value="Environmental Activist">Environmental Activist</option>
-                <option value="Podcast Host">Podcast Host</option>
-                <option value="Journalist">Journalist</option>
-                <option value="Entrepreneur">Entrepreneur</option>
-                <option value="Marketing Specialist">Marketing Specialist</option>
-                <option value="Graphic Designer">Graphic Designer</option>
-                <option value="Health Coach">Health Coach</option>
-                <option value="Nutritionist">Nutritionist</option>
-                <option value="Poet">Poet</option>
-                <option value="Business Consultant">Business Consultant</option>
-                <option value="Relationship Advisor">Relationship Advisor</option>
-            </select>
-        </div>
-
-       <div class="input-group">
-            <label for="tone">Tone:</label>
-            <input type="text" id="tone-input" placeholder="Or enter a custom tone">
-            <select id="tone">
-                <option value="" selected>-- Select or Enter a Tone --</option>
-                <option value="Informative">Informative</option>
-                <option value="Inspirational">Inspirational</option>
-                <option value="Humorous">Humorous</option>
-                <option value="Friendly">Friendly</option>
-                <option value="Professional">Professional</option>
-                <option value="Casual">Casual</option>
-                <option value="Persuasive">Persuasive</option>
-                <option value="Encouraging">Encouraging</option>
-                <option value="Compassionate">Compassionate</option>
-                <option value="Empathetic">Empathetic</option>
-                <option value="Serious">Serious</option>
-                <option value="Sarcastic">Sarcastic</option>
-                <option value="Optimistic">Optimistic</option>
-                <option value="Pessimistic">Pessimistic</option>
-                <option value="Enthusiastic">Enthusiastic</option>
-                <option value="Romantic">Romantic</option>
-                <option value="Nostalgic">Nostalgic</option>
-                <option value="Motivational">Motivational</option>
-                <option value="Reflective">Reflective</option>
-                <option value="Critical">Critical</option>
-                <option value="Formal">Formal</option>
-                <option value="Playful">Playful</option>
-                <option value="Melancholic">Melancholic</option>
-                <option value="Uplifting">Uplifting</option>
-                <option value="Assertive">Assertive</option>
-                <option value="Calm">Calm</option>
-                <option value="Contemplative">Contemplative</option>
-                <option value="Apologetic">Apologetic</option>
-                <option value="Cautious">Cautious</option>
-                <option value="Confident">Confident</option>
-                <option value="Sympathetic">Sympathetic</option>
-                <option value="Sincere">Sincere</option>
-                <option value="Dramatic">Dramatic</option>
-                <option value="Mysterious">Mysterious</option>
-                <option value="Provocative">Provocative</option>
-                <option value="Respectful">Respectful</option>
-                <option value="Satirical">Satirical</option>
-                <option value="Thoughtful">Thoughtful</option>
-                <option value="Witty">Witty</option>
-                <option value="Encouraging">Encouraging</option>
-                <option value="Compelling">Compelling</option>
-                <option value="Conversational">Conversational</option>
-                <option value="Academic">Academic</option>
-                <option value="Dramatic">Dramatic</option>
-                <option value="Excited">Excited</option>
-            </select>
-        </div>
-
-        <div class="input-group">
-            <label for="instruction">Instruction:</label>
-            <input type="text" id="instruction-input" placeholder="Or enter a custom instruction">
-            <select id="instruction">
-                <option value="" selected>-- Select or Enter an Instruction --</option>
-                <option value="Create">Create</option>
-                <option value="Suggest">Suggest</option>
-                <option value="Write">Write</option>
-                <option value="Compose">Compose</option>
-                <option value="Analyze">Analyze</option>
-                <option value="Compare">Compare</option>
-                <option value="Describe">Describe</option>
-                <option value="Discuss">Discuss</option>
-                <option value="Evaluate">Evaluate</option>
-                <option value="Explain">Explain</option>
-                <option value="Identify">Identify</option>
-                <option value="Illustrate">Illustrate</option>
-                <option value="Interpret">Interpret</option>
-                <option value="Justify">Justify</option>
-                <option value="Outline">Outline</option>
-                <option value="Summarize">Summarize</option>
-                <option value="Synthesize">Synthesize</option>
-                <option value="Define">Define</option>
-                <option value="Argue">Argue</option>
-                <option value="Categorize">Categorize</option>
-                <option value="Classify">Classify</option>
-                <option value="Critique">Critique</option>
-                <option value="Debate">Debate</option>
-                <option value="Differentiate">Differentiate</option>
-                <option value="Elaborate">Elaborate</option>
-                <option value="Exemplify">Exemplify</option>
-                <option value="Explore">Explore</option>
-                <option value="Investigate">Investigate</option>
-                <option value="List">List</option>
-                <option value="Predict">Predict</option>
-                <option value="Propose">Propose</option>
-                <option value="Recommend">Recommend</option>
-                <option value="Reflect">Reflect</option>
-                <option value="Assess">Assess</option>
-                <option value="Clarify">Clarify</option>
-                <option value="Construct">Construct</option>
-                <option value="Correlate">Correlate</option>
-                <option value="Deduce">Deduce</option>
-                <option value="Diagnose">Diagnose</option>
-                <option value="Hypothesize">Hypothesize</option>
-                <option value="Plan">Plan</option>
-                <option value="Prioritize">Prioritize</option>
-                <option value="Review">Review</option>
-                <option value="Suggest">Suggest</option>
-                <option value="Refine">Refine</option>
-            </select>
-        </div>
-        
-        <div class="row-container">
-        
-            <div class = "input-group">
-                <label for="length-type">Length Type</label>
-                <input type="text" id="length-type-input" placeholder="Or enter a custom length type">
-                <select id="length-type">
-                    <option value="" selected>-- Select a Length Type --</option>
-                    <option value="N Character">N Character</option>
-                    <option value="N Word">N Word</option>
-                    <option value="N Line">N Line</option>
-                    <option value="N Paragraph">N Paragraph</option>
-                    <option value="N Page">N Page</option>
-                    <option value="N Sentence">N Sentence</option>
-                    <option value="Quick">Quick</option>
-                    <option value="Short">Short</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Long">Long</option>
-                    <option value="Lengthy">Lengthy</option>
-                    <option value="Minmal">Minmal</option>
-                    <option value="Moderate">Moderate</option>
-                    <option value="Brief">Brief</option>
-                    <option value="Detailed">Detailed</option>
-                    <option value="In-depth">In-depth</option>
-                    <option value="Comprehensive">Comprehensive</option>
-                    <option value="Extended">Extended</option>
-                    <option value="Expanded">Expanded</option>
-                    <option value="Concise">Concise</option>
+            <div class="input-group role">
+                <label for="role">Role:</label>
+                <input type="text" id="role-input" placeholder="Or enter a custom role">
+                <select id="role">
+                    <option value="" selected>-- Select or Enter a Role --</option>
+                    <option value="Professional">Professional</option>
+                    <option value="Expert">Expert</option>
+                    <option value="Friend">Friend</option>
+                    <option value="Copywriter">Copywriter</option>
+                    <option value="Creative Writer">Creative Writer</option>
+                    <option value="Sales Coach">Sales Coach</option>
+                    <option value="Marketing Coach">Marketing Coach</option>
+                    <option value="Tech consultant">Tech consultant</option>
+                    <option value="Life Coach">Life Coach</option>
+                    <option value="Data analyst">Data analyst</option>
+                    <option value="Influencer">Influencer</option>
+                    <option value="Language Tutor">Language Tutor</option>
+                    <option value="Fitness Trainer">Fitness Trainer</option>
+                    <option value="Recipe Guru">Recipe Guru</option>
+                    <option value="Financial Advisor">Financial Advisor</option>
+                    <option value="Therapist">Therapist</option>
+                    <option value="Storyteller">Storyteller</option>
+                    <option value="Event Planner">Event Planner</option>
+                    <option value="Tech Support">Tech Support</option>
+                    <option value="Study Buddy">Study Buddy</option>
+                    <option value="Music Composer">Music Composer</option>
+                    <option value="Film Critic">Film Critic</option>
+                    <option value="Fitness Nutritionist">Fitness Nutritionist</option>
+                    <option value="Pet Trainer">Pet Trainer</option>
+                    <option value="Moderator">Moderator</option>
+                    <option value="Motivational Speaker">Motivational Speaker</option>
+                    <option value="History Professor">History Professor</option>
+                    <option value="Science Educator">Science Educator</option>
+                    <option value="Art Critic">Art Critic</option>
+                    <option value="Detective">Detective</option>
+                    <option value="Mythology Expert">Mythology Expert</option>
+                    <option value="Travel Planner">Travel Planner</option>
+                    <option value="Travel Photographer">Travel Photographer</option>
+                    <option value="Environmental Activist">Environmental Activist</option>
+                    <option value="Podcast Host">Podcast Host</option>
+                    <option value="Journalist">Journalist</option>
+                    <option value="Entrepreneur">Entrepreneur</option>
+                    <option value="Marketing Specialist">Marketing Specialist</option>
+                    <option value="Graphic Designer">Graphic Designer</option>
+                    <option value="Health Coach">Health Coach</option>
+                    <option value="Nutritionist">Nutritionist</option>
+                    <option value="Poet">Poet</option>
+                    <option value="Business Consultant">Business Consultant</option>
+                    <option value="Relationship Advisor">Relationship Advisor</option>
                 </select>
             </div>
-                
-            <div class = "input-group">
-                <label for="length-value">Length Value (or N):</label>
-                <input type="text" id="length-value" placeholder="Enter value or leave blank">
+
+        <div class="input-group tone">
+                <label for="tone">Tone:</label>
+                <input type="text" id="tone-input" placeholder="Or enter a custom tone">
+                <select id="tone">
+                    <option value="" selected>-- Select or Enter a Tone --</option>
+                    <option value="Informative">Informative</option>
+                    <option value="Inspirational">Inspirational</option>
+                    <option value="Humorous">Humorous</option>
+                    <option value="Friendly">Friendly</option>
+                    <option value="Professional">Professional</option>
+                    <option value="Casual">Casual</option>
+                    <option value="Persuasive">Persuasive</option>
+                    <option value="Encouraging">Encouraging</option>
+                    <option value="Compassionate">Compassionate</option>
+                    <option value="Empathetic">Empathetic</option>
+                    <option value="Serious">Serious</option>
+                    <option value="Sarcastic">Sarcastic</option>
+                    <option value="Optimistic">Optimistic</option>
+                    <option value="Pessimistic">Pessimistic</option>
+                    <option value="Enthusiastic">Enthusiastic</option>
+                    <option value="Romantic">Romantic</option>
+                    <option value="Nostalgic">Nostalgic</option>
+                    <option value="Motivational">Motivational</option>
+                    <option value="Reflective">Reflective</option>
+                    <option value="Critical">Critical</option>
+                    <option value="Formal">Formal</option>
+                    <option value="Playful">Playful</option>
+                    <option value="Melancholic">Melancholic</option>
+                    <option value="Uplifting">Uplifting</option>
+                    <option value="Assertive">Assertive</option>
+                    <option value="Calm">Calm</option>
+                    <option value="Contemplative">Contemplative</option>
+                    <option value="Apologetic">Apologetic</option>
+                    <option value="Cautious">Cautious</option>
+                    <option value="Confident">Confident</option>
+                    <option value="Sympathetic">Sympathetic</option>
+                    <option value="Sincere">Sincere</option>
+                    <option value="Dramatic">Dramatic</option>
+                    <option value="Mysterious">Mysterious</option>
+                    <option value="Provocative">Provocative</option>
+                    <option value="Respectful">Respectful</option>
+                    <option value="Satirical">Satirical</option>
+                    <option value="Thoughtful">Thoughtful</option>
+                    <option value="Witty">Witty</option>
+                    <option value="Encouraging">Encouraging</option>
+                    <option value="Compelling">Compelling</option>
+                    <option value="Conversational">Conversational</option>
+                    <option value="Academic">Academic</option>
+                    <option value="Dramatic">Dramatic</option>
+                    <option value="Excited">Excited</option>
+                </select>
             </div>
-        </div>
+
+            <div class="input-group instruction">
+                <label for="instruction">Instruction:</label>
+                <input type="text" id="instruction-input" placeholder="Or enter a custom instruction">
+                <select id="instruction">
+                    <option value="" selected>-- Select or Enter an Instruction --</option>
+                    <option value="Create">Create</option>
+                    <option value="Suggest">Suggest</option>
+                    <option value="Write">Write</option>
+                    <option value="Compose">Compose</option>
+                    <option value="Analyze">Analyze</option>
+                    <option value="Compare">Compare</option>
+                    <option value="Describe">Describe</option>
+                    <option value="Discuss">Discuss</option>
+                    <option value="Evaluate">Evaluate</option>
+                    <option value="Explain">Explain</option>
+                    <option value="Identify">Identify</option>
+                    <option value="Illustrate">Illustrate</option>
+                    <option value="Interpret">Interpret</option>
+                    <option value="Justify">Justify</option>
+                    <option value="Outline">Outline</option>
+                    <option value="Summarize">Summarize</option>
+                    <option value="Synthesize">Synthesize</option>
+                    <option value="Define">Define</option>
+                    <option value="Argue">Argue</option>
+                    <option value="Categorize">Categorize</option>
+                    <option value="Classify">Classify</option>
+                    <option value="Critique">Critique</option>
+                    <option value="Debate">Debate</option>
+                    <option value="Differentiate">Differentiate</option>
+                    <option value="Elaborate">Elaborate</option>
+                    <option value="Exemplify">Exemplify</option>
+                    <option value="Explore">Explore</option>
+                    <option value="Investigate">Investigate</option>
+                    <option value="List">List</option>
+                    <option value="Predict">Predict</option>
+                    <option value="Propose">Propose</option>
+                    <option value="Recommend">Recommend</option>
+                    <option value="Reflect">Reflect</option>
+                    <option value="Assess">Assess</option>
+                    <option value="Clarify">Clarify</option>
+                    <option value="Construct">Construct</option>
+                    <option value="Correlate">Correlate</option>
+                    <option value="Deduce">Deduce</option>
+                    <option value="Diagnose">Diagnose</option>
+                    <option value="Hypothesize">Hypothesize</option>
+                    <option value="Plan">Plan</option>
+                    <option value="Prioritize">Prioritize</option>
+                    <option value="Review">Review</option>
+                    <option value="Suggest">Suggest</option>
+                    <option value="Refine">Refine</option>
+                </select>
+            </div>
+            
+            <div class="row-container length-type">
+                <div class = "input-group">
+                    <label for="length-type">Length Type</label>
+                    <input type="text" id="length-type-input" placeholder="Or enter a custom length type">
+                    <select id="length-type">
+                        <option value="" selected>-- Select a Length Type --</option>
+                        <option value="N Character">N Character</option>
+                        <option value="N Word">N Word</option>
+                        <option value="N Line">N Line</option>
+                        <option value="N Paragraph">N Paragraph</option>
+                        <option value="N Page">N Page</option>
+                        <option value="N Sentence">N Sentence</option>
+                        <option value="Quick">Quick</option>
+                        <option value="Short">Short</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Long">Long</option>
+                        <option value="Lengthy">Lengthy</option>
+                        <option value="Minmal">Minmal</option>
+                        <option value="Moderate">Moderate</option>
+                        <option value="Brief">Brief</option>
+                        <option value="Detailed">Detailed</option>
+                        <option value="In-depth">In-depth</option>
+                        <option value="Comprehensive">Comprehensive</option>
+                        <option value="Extended">Extended</option>
+                        <option value="Expanded">Expanded</option>
+                        <option value="Concise">Concise</option>
+                    </select>
+                </div>
+                <div class = "input-group">
+                    <label for="length-value">Length Value (or N):</label>
+                    <input type="text" id="length-value" placeholder="Enter value or leave blank">
+                </div>
+            </div>
+            
+            <div class="input-group content-type">
+                <label for="contentType">Content Type:</label>
+                <input type="text" id="content-type-input" placeholder="Or enter custom content type">
+                <select id="contentType">
+                    <option value="" selected>-- Select or Enter a Content Type --</option>
+                    <option value="Article">Article</option>
+                    <option value="Webpage">Webpage</option>
+                    <option value="Document">Document</option>
+                    <option value="Guide">Guide</option>
+                    <option value="Note">Note</option>
+                    <option value="Description">Description</option>
+                    <option value="Report">Report</option>
+                    <option value="Summary">Summary</option>
+                    <option value="Handout">Handout</option>
+                    <option value="Email">Email</option>
+                    <option value="Letter">Letter</option>
+                    <option value="Review">Review</option>
+                    <option value="Essay">Essay</option>
+                    <option value="Manual">Manual</option>
+                    <option value="Outline">Outline</option>
+                    <option value="Instruction">Instruction</option>
+                    <option value="Analysis">Analysis</option>
+                    <option value="Commentary">Commentary</option>
+                    <option value="Explanation">Explanation</option>
+                    <option value="Recommendation">Recommendation</option>
+                    <option value="Plan">Plan</option>
+                    <option value="Proposal">Proposal</option>
+                    <option value="Critique">Critique</option>
+                    <option value="Narrative">Narrative</option>
+                    <option value="Story">Story</option>
+                    <option value="Script">Script</option>
+                    <option value="Brief">Brief</option>
+                    <option value="Commentary">Commentary</option>
+                    <option value="Case">Case</option>
+                    <option value="Diary">Diary</option>
+                    <option value="Draft">Draft</option>
+                    <option value="Memo">Memo</option>
+                    <option value="Overview">Overview</option>
+                    <option value="Plan">Plan</option>
+                    <option value="Project">Project</option>
+                    <option value="Recipe">Recipe</option>
+                    <option value="Reflections">Reflections</option>
+                    <option value="Sketch">Sketch</option>
+                    <option value="Speech">Speech</option>
+                    <option value="Thesis">Thesis</option>
+                    <option value="Tutorial">Tutorial</option>
+                    <option value="Vision">Vision</option>
+                    <option value="Workbook">Workbook</option>
+                    <option value="Flowchart descriptin">Flowchart description</option>
+                    <option value="Step by step guide">Step by step guide</option>
+                    <option value="Regex">Regex</option>
+                    <option value="Chatbot dialog">Chatbot dialog</option>
+                    <option value="Pseudo-code">Pseudo-code</option>
+                </select>
+            </div>
         
-        <div class="input-group">
-            <label for="contentType">Content Type:</label>
-            <input type="text" id="content-type-input" placeholder="Or enter custom content type">
-            <select id="contentType">
-                <option value="" selected>-- Select or Enter a Content Type --</option>
-                <option value="Article">Article</option>
-                <option value="Webpage">Webpage</option>
-                <option value="Document">Document</option>
-                <option value="Guide">Guide</option>
-                <option value="Note">Note</option>
-                <option value="Description">Description</option>
-                <option value="Report">Report</option>
-                <option value="Summary">Summary</option>
-                <option value="Handout">Handout</option>
-                <option value="Email">Email</option>
-                <option value="Letter">Letter</option>
-                <option value="Review">Review</option>
-                <option value="Essay">Essay</option>
-                <option value="Manual">Manual</option>
-                <option value="Outline">Outline</option>
-                <option value="Instruction">Instruction</option>
-                <option value="Analysis">Analysis</option>
-                <option value="Commentary">Commentary</option>
-                <option value="Explanation">Explanation</option>
-                <option value="Recommendation">Recommendation</option>
-                <option value="Plan">Plan</option>
-                <option value="Proposal">Proposal</option>
-                <option value="Critique">Critique</option>
-                <option value="Narrative">Narrative</option>
-                <option value="Story">Story</option>
-                <option value="Script">Script</option>
-                <option value="Brief">Brief</option>
-                <option value="Commentary">Commentary</option>
-                <option value="Case">Case</option>
-                <option value="Diary">Diary</option>
-                <option value="Draft">Draft</option>
-                <option value="Memo">Memo</option>
-                <option value="Overview">Overview</option>
-                <option value="Plan">Plan</option>
-                <option value="Project">Project</option>
-                <option value="Recipe">Recipe</option>
-                <option value="Reflections">Reflections</option>
-                <option value="Sketch">Sketch</option>
-                <option value="Speech">Speech</option>
-                <option value="Thesis">Thesis</option>
-                <option value="Tutorial">Tutorial</option>
-                <option value="Vision">Vision</option>
-                <option value="Workbook">Workbook</option>
-                <option value="Flowchart descriptin">Flowchart description</option>
-                <option value="Step by step guide">Step by step guide</option>
-                <option value="Regex">Regex</option>
-                <option value="Chatbot dialog">Chatbot dialog</option>
-                <option value="Pseudo-code">Pseudo-code</option>
-            </select>
-        </div>
-    
-        <div class="input-group">
-            <label for="format">Format:</label>
-            <input type="text" id="format-input" placeholder="Or enter a custom format">
-            <select id="format">
-                <option value="" selected>-- Select or Enter a Format --</option>
-                <option value="Plain Text (.txt)">Plain Text (.txt)</option>
-                <option value="HTML (.html)">HTML (.html)</option>
-                <option value="Markdown (.md)">Markdown (.md)</option>
-                <option value="JSON (.json)">JSON (.json)</option>
-                <option value="CSV (.csv)">CSV (.csv)</option>
-                <option value="YAML (.yaml)">YAML (.yaml)</option>
-                <option value="XML (.xml)">XML (.xml)</option>
-                <option value="PDF (.pdf)">PDF (.pdf)</option>
-                <option value="MS Word (.docx)">MS Word (.docx)</option>
-                <option value="MS Excel (.xlsx)">MS Excel (.xlsx)</option>
-                <option value="PowerPoint Presentation (.pptx)">PowerPoint Presentation (.pptx)</option>
-                <option value="LaTeX (.tex)">LaTeX (.tex)</option>
-                <option value="Rich Text Format (.rtf)">Rich Text Format (.rtf)</option>
-                <option value="SQL Query (.sql)">SQL Query (.sql)</option>
-                <option value="Python Script (.py)">Python Script (.py)</option>
-                <option value="JavaScript File (.js)">JavaScript File (.js)</option>
-                <option value="TypeScript File (.ts)">TypeScript File (.ts)</option>
-                <option value="Java Code (.java)">Java Code (.java)</option>
-                <option value="C Code (.c)">C Code (.c)</option>
-                <option value="C++ Code (.cpp)">C++ Code (.cpp)</option>
-                <option value="C# Code (.cs)">C# Code (.cs)</option>
-                <option value="Swift Code (.swift)">Swift Code (.swift)</option>
-                <option value="Kotlin Code (.kt)">Kotlin Code (.kt)</option>
-                <option value="Objective-C Code (.m)">Objective-C Code (.m)</option>
-                <option value="PHP Script (.php)">PHP Script (.php)</option>
-                <option value="Shell Script (.sh)">Shell Script (.sh)</option>
-                <option value="Batch Script (.bat)">Batch Script (.bat)</option>
-                <option value="Perl Script (.pl)">Perl Script (.pl)</option>
-                <option value="Ruby Script (.rb)">Ruby Script (.rb)</option>
-                <option value="R Script (.r)">R Script (.r)</option>
-                <option value="MATLAB Script (.m)">MATLAB Script (.m)</option>
-                <option value="Jupyter Notebook (.ipynb)">Jupyter Notebook (.ipynb)</option>
-                <option value="GraphQL (.graphql)">GraphQL (.graphql)</option>
-                <option value="SVG (.svg)">SVG (.svg)</option>
-                <option value="ASCII Art (.txt)">ASCII Art (.txt)</option>
-                <option value="Binary Data (.bin)">Binary Data (.bin)</option>
-                <option value="Audio (.mp3, .wav)">Audio (.mp3, .wav)</option>
-                <option value="Image with Text Overlay (.png, .jpg)">Image with Text Overlay (.png, .jpg)</option>
-                 <option value="Braille (.brf)">Braille (.brf)</option>
-                <option value="Morse Code (.txt)">Morse Code (.txt)</option>
-                <option value="Pseudo-code">Pseudo-code</option>
-                <option value="Chatbot dialog">Chatbot dialog</option>
-            </select>
+            <div class="input-group format">
+                <label for="format">Format:</label>
+                <input type="text" id="format-input" placeholder="Or enter a custom format">
+                <select id="format">
+                    <option value="" selected>-- Select or Enter a Format --</option>
+                    <option value="Plain Text (.txt)">Plain Text (.txt)</option>
+                    <option value="HTML (.html)">HTML (.html)</option>
+                    <option value="Markdown (.md)">Markdown (.md)</option>
+                    <option value="JSON (.json)">JSON (.json)</option>
+                    <option value="CSV (.csv)">CSV (.csv)</option>
+                    <option value="YAML (.yaml)">YAML (.yaml)</option>
+                    <option value="XML (.xml)">XML (.xml)</option>
+                    <option value="PDF (.pdf)">PDF (.pdf)</option>
+                    <option value="MS Word (.docx)">MS Word (.docx)</option>
+                    <option value="MS Excel (.xlsx)">MS Excel (.xlsx)</option>
+                    <option value="PowerPoint Presentation (.pptx)">PowerPoint Presentation (.pptx)</option>
+                    <option value="LaTeX (.tex)">LaTeX (.tex)</option>
+                    <option value="Rich Text Format (.rtf)">Rich Text Format (.rtf)</option>
+                    <option value="SQL Query (.sql)">SQL Query (.sql)</option>
+                    <option value="Python Script (.py)">Python Script (.py)</option>
+                    <option value="JavaScript File (.js)">JavaScript File (.js)</option>
+                    <option value="TypeScript File (.ts)">TypeScript File (.ts)</option>
+                    <option value="Java Code (.java)">Java Code (.java)</option>
+                    <option value="C Code (.c)">C Code (.c)</option>
+                    <option value="C++ Code (.cpp)">C++ Code (.cpp)</option>
+                    <option value="C# Code (.cs)">C# Code (.cs)</option>
+                    <option value="Swift Code (.swift)">Swift Code (.swift)</option>
+                    <option value="Kotlin Code (.kt)">Kotlin Code (.kt)</option>
+                    <option value="Objective-C Code (.m)">Objective-C Code (.m)</option>
+                    <option value="PHP Script (.php)">PHP Script (.php)</option>
+                    <option value="Shell Script (.sh)">Shell Script (.sh)</option>
+                    <option value="Batch Script (.bat)">Batch Script (.bat)</option>
+                    <option value="Perl Script (.pl)">Perl Script (.pl)</option>
+                    <option value="Ruby Script (.rb)">Ruby Script (.rb)</option>
+                    <option value="R Script (.r)">R Script (.r)</option>
+                    <option value="MATLAB Script (.m)">MATLAB Script (.m)</option>
+                    <option value="Jupyter Notebook (.ipynb)">Jupyter Notebook (.ipynb)</option>
+                    <option value="GraphQL (.graphql)">GraphQL (.graphql)</option>
+                    <option value="SVG (.svg)">SVG (.svg)</option>
+                    <option value="ASCII Art (.txt)">ASCII Art (.txt)</option>
+                    <option value="Binary Data (.bin)">Binary Data (.bin)</option>
+                    <option value="Audio (.mp3, .wav)">Audio (.mp3, .wav)</option>
+                    <option value="Image with Text Overlay (.png, .jpg)">Image with Text Overlay (.png, .jpg)</option>
+                    <option value="Braille (.brf)">Braille (.brf)</option>
+                    <option value="Morse Code (.txt)">Morse Code (.txt)</option>
+                    <option value="Pseudo-code">Pseudo-code</option>
+                    <option value="Chatbot dialog">Chatbot dialog</option>
+                </select>
+            </div>
+
+            <div class="input-group target-audience">
+                <label for="targetAudience">Target Audience:</label>
+                <input type="text" id="targetAudience" placeholder="Enter Target Audience">
+            </div>
+
+            <div class="input-group about">
+                <label for="about">About:</label>
+                <input type="text" id="about" placeholder="Enter the subject/topic">
+            </div>
+
+            <div class="input-group inclusion">
+                <label for="inclusion">Include:</label>
+                <input type="text" id="inclusion" placeholder="What to include (comma-separated)">
+            </div>
+
+            <div class="input-group exclusion">
+                <label for="exclusion">Exclude:</label>
+                <input type="text" id="exclusion" placeholder="What to exclude (comma-separated)">
+            </div>
+
+            <div class="input-group input-data">
+                <label for="inputData">Input Data:</label>
+                <textarea id="inputData" placeholder="Enter any additional input data"></textarea>
+            </div>
+
+            <label for="promptOutput">Generated Prompt:</label>
+            <textarea id="promptOutput" placeholder="Your generated prompt will appear here" rows="5"></textarea>
+
         </div>
 
-        <div class="input-group">
-            <label for="targetAudience">Target Audience:</label>
-            <input type="text" id="targetAudience" placeholder="Enter Target Audience">
-        </div>
-
-        <div class="input-group">
-            <label for="about">About:</label>
-            <input type="text" id="about" placeholder="Enter the subject/topic">
-        </div>
-
-        <div class="input-group">
-            <label for="inclusion">Include:</label>
-            <input type="text" id="inclusion" placeholder="What to include (comma-separated)">
-        </div>
-
-        <div class="input-group">
-            <label for="exclusion">Exclude:</label>
-            <input type="text" id="exclusion" placeholder="What to exclude (comma-separated)">
-        </div>
-
-        <div class="input-group">
-            <label for="inputData">Input Data:</label>
-            <textarea id="inputData" placeholder="Enter any additional input data"></textarea>
-        </div>
-
-        <label for="promptOutput">Generated Prompt:</label>
-        <textarea id="promptOutput" placeholder="Your generated prompt will appear here" rows="5"></textarea>
-        
         <div class="button-container">
-            <button id="clearButton">Clear</button>
             <button id="generateButton">Generate Prompt</button>
             <button id="copyButton">Copy to Clipboard</button>
+            <button id="clearButton">Clear</button>
         </div>
-        </div>
+        
     </div>
 
     <script>
@@ -576,9 +614,9 @@
             output.select();
             document.execCommand('copy');
         }
-
-        document.getElementById('clearButton').addEventListener('click', clearInputs);
         
+        document.getElementById('clearButton').addEventListener('click', clearInputs);
+
         function clearInputs() {
             // Clear text inputs
             document.getElementById('role-input').value = '';
