@@ -172,7 +172,7 @@
         <div class="form-grid">
             <div class="input-group role">
                 <label for="role">Role:</label>
-                <input type="text" id="role-input" placeholder="Or enter a custom role">
+                <input type="text" id="role-input" placeholder="Or enter a custom role" hidden>
                 <select id="role">
                     <option value="" selected>-- Select or Enter a Role --</option>
                     <option value="Professional">Professional</option>
@@ -219,12 +219,13 @@
                     <option value="Poet">Poet</option>
                     <option value="Business Consultant">Business Consultant</option>
                     <option value="Relationship Advisor">Relationship Advisor</option>
+                    <option value="Other">Other</option>
                 </select>
             </div>
 
         <div class="input-group tone">
                 <label for="tone">Tone:</label>
-                <input type="text" id="tone-input" placeholder="Or enter a custom tone">
+                <input type="text" id="tone-input" placeholder="Or enter a custom tone" hidden>
                 <select id="tone">
                     <option value="" selected>-- Select or Enter a Tone --</option>
                     <option value="Informative">Informative</option>
@@ -272,12 +273,13 @@
                     <option value="Academic">Academic</option>
                     <option value="Dramatic">Dramatic</option>
                     <option value="Excited">Excited</option>
+                    <option value="Other">Other</option>
                 </select>
             </div>
 
             <div class="input-group instruction">
                 <label for="instruction">Instruction:</label>
-                <input type="text" id="instruction-input" placeholder="Or enter a custom instruction">
+                <input type="text" id="instruction-input" placeholder="Or enter a custom instruction" hidden>
                 <select id="instruction">
                     <option value="" selected>-- Select or Enter an Instruction --</option>
                     <option value="Create">Create</option>
@@ -325,12 +327,13 @@
                     <option value="Review">Review</option>
                     <option value="Suggest">Suggest</option>
                     <option value="Refine">Refine</option>
+                    <option value="Other">Other</option>
                 </select>
             </div>
 
             <div class = "input-group length-type">
                 <label for="length-type">Length Type</label>
-                <input type="text" id="length-type-input" placeholder="Or enter a custom length type">
+                <input type="text" id="length-type-input" placeholder="Or enter a custom length type" hidden>
                 <select id="length-type">
                     <option value="" selected>-- Select a Length Type --</option>
                     <option value="N Character">N Character</option>
@@ -353,6 +356,7 @@
                     <option value="Extended">Extended</option>
                     <option value="Expanded">Expanded</option>
                     <option value="Concise">Concise</option>
+                    <option value="Other">Other</option>
                 </select>
             </div>
 
@@ -363,7 +367,7 @@
             
             <div class="input-group content-type">
                 <label for="contentType">Content Type:</label>
-                <input type="text" id="content-type-input" placeholder="Or enter custom content type">
+                <input type="text" id="content-type-input" placeholder="Or enter custom content type" hidden>
                 <select id="contentType">
                     <option value="" selected>-- Select or Enter a Content Type --</option>
                     <option value="Article">Article</option>
@@ -414,12 +418,13 @@
                     <option value="Regex">Regex</option>
                     <option value="Chatbot dialog">Chatbot dialog</option>
                     <option value="Pseudo-code">Pseudo-code</option>
+                    <option value="Other">Other</option>
                 </select>
             </div>
         
             <div class="input-group format">
                 <label for="format">Format:</label>
-                <input type="text" id="format-input" placeholder="Or enter a custom format">
+                <input type="text" id="format-input" placeholder="Or enter a custom format" hidden>
                 <select id="format">
                     <option value="" selected>-- Select or Enter a Format --</option>
                     <option value="Plain Text (.txt)">Plain Text (.txt)</option>
@@ -464,6 +469,7 @@
                     <option value="Morse Code (.txt)">Morse Code (.txt)</option>
                     <option value="Pseudo-code">Pseudo-code</option>
                     <option value="Chatbot dialog">Chatbot dialog</option>
+                    <option value="Other">Other</option>
                 </select>
             </div>
 
@@ -510,6 +516,52 @@
     <script>
         document.getElementById('generateButton').addEventListener('click', generatePrompt);
         document.getElementById('copyButton').addEventListener('click', copyToClipboard);
+
+        // --- Show/Hide Input Fields ---
+        const roleSelect = document.getElementById('role');
+        const toneSelect = document.getElementById('tone');
+        const instructionSelect = document.getElementById('instruction');
+        const lengthTypeSelect = document.getElementById('length-type');
+        const contentTypeSelect = document.getElementById('contentType');
+        const formatSelect = document.getElementById('format');
+
+        const roleInput = document.getElementById('role-input');
+        const toneInput = document.getElementById('tone-input');
+        const instructionInput = document.getElementById('instruction-input');
+        const lengthTypeInput = document.getElementById('length-type-input');
+        const contentTypeInput = document.getElementById('content-type-input');
+        const formatInput = document.getElementById('format-input');
+
+
+        roleSelect.addEventListener('change', function() {
+            toggleInput(roleSelect, roleInput);
+        });
+
+        toneSelect.addEventListener('change', function() {
+            toggleInput(toneSelect, toneInput);
+        });
+
+        instructionSelect.addEventListener('change', function() {
+            toggleInput(instructionSelect, instructionInput);
+        });
+        lengthTypeSelect.addEventListener('change', function(){
+            toggleInput(lengthTypeSelect, lengthTypeInput);
+        })
+        contentTypeSelect.addEventListener('change', function() {
+            toggleInput(contentTypeSelect, contentTypeInput);
+        });
+
+        formatSelect.addEventListener('change', function() {
+            toggleInput(formatSelect, formatInput);
+        });
+        //Generic function.
+        function toggleInput(selectElement, inputElement) {
+            if (selectElement.value === 'Other') {
+                inputElement.hidden = false;
+            } else {
+                inputElement.hidden = true;
+            }
+        }
 
         function generatePrompt() {
             // Get values from dropdowns and input fields, handling custom inputs
