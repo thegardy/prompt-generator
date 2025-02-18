@@ -18,7 +18,7 @@
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            max-width: 800px;
+            max-width: 1200px; /* Increased max-width */
             margin: 40px auto;
             border: 1px solid #555;
         }
@@ -31,7 +31,7 @@
         }
 
         p {
-            text-align: center;
+            text-align: left; /* Left-align the paragraph */
             margin-bottom: 30px;
             color: #ccc;
         }
@@ -52,7 +52,6 @@
         textarea {
             width: 100%;
             padding: 12px;
-            margin-bottom: 15px;
             border: 1px solid #555;
             border-radius: 6px;
             box-sizing: border-box;
@@ -70,55 +69,50 @@
             box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.25);
         }
 
+        /* --- GRID LAYOUT --- */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns */
+            grid-template-areas:
+                "role tone instruction"
+                "length-type length-value content-type"
+                "format target-audience about"
+                "inclusion exclusion input-data"
+                "prompt-output prompt-output prompt-output"
+                "buttons buttons buttons";
+            gap: 20px;
+        }
+         /* Assign elements to grid areas */
+        .role               { grid-area: role; }
+        .tone               { grid-area: tone; }
+        .instruction        { grid-area: instruction; }
+        .length-type        { grid-area: length-type; }
+        .length-value      { grid-area: length-value;}
+        .content-type       { grid-area: content-type; }
+        .format             { grid-area: format; }
+        .target-audience    { grid-area: target-audience; }
+        .about              { grid-area: about; }
+        .inclusion          { grid-area: inclusion; }
+        .exclusion          { grid-area: exclusion; }
+        .input-data         { grid-area: input-data; }
+        .prompt-output      {grid-area: prompt-output;}
+        .button-container     { grid-area: buttons; }
+
         #promptOutput {
             background-color: #3c3c3c;
             padding: 15px;
             border: 1px solid #666;
             border-radius: 6px;
-            margin-bottom: 20px;
             white-space: pre-wrap;
             font-size: 16px;
             color: #eee;
+            width: auto; /* Allow it to take the full width of its grid area */
         }
-
-
-        /* --- GRID LAYOUT --- */
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* Two columns */
-            grid-template-areas: /* Define named areas */
-                "role tone"
-                "instruction length-type"
-                "content-type format"
-                "target-audience about"
-                "inclusion exclusion"
-                "input-data input-data"
-                "prompt-output prompt-output"
-                "buttons buttons";
-            gap: 20px;
-        }
-
-        /* Assign elements to grid areas */
-        .role { grid-area: role; }
-        .tone { grid-area: tone; }
-        .instruction { grid-area: instruction; }
-        .length-type { grid-area: length-type; } /*Both length fields in ONE area */
-        .content-type { grid-area: content-type; }
-        .format { grid-area: format; }
-        .target-audience { grid-area: target-audience; }
-        .about { grid-area: about; }
-        .inclusion { grid-area: inclusion; }
-        .exclusion { grid-area: exclusion; }
-        .input-data { grid-area: input-data; }
-        #promptOutput { grid-area: prompt-output; } /* Use ID selector for textarea */
-        .button-container { grid-area: buttons; }
-
 
         .button-container {
             display: flex;
             justify-content: space-between;
             gap: 10px;
-            margin-bottom: 20px;
         }
 
         button {
@@ -132,79 +126,34 @@
             font-weight: bold;
         }
 
-        #generateButton {
-            background-color: #4CAF50;
-            color: white;
-        }
+        #generateButton {  background-color: #4CAF50; color: white; }
+        #generateButton:hover { background-color: #367c39; }
+        #clearButton { background-color: #f44336; color: white; }
+        #clearButton:hover { background-color: #d32f2f; }
+        #copyButton { background-color: #007bff; color: white; }
+        #copyButton:hover { background-color: #0056b3; }
 
-        #generateButton:hover {
-            background-color: #367c39;
-        }
-
-        #clearButton {
-            background-color: #f44336;
-            color: white;
-        }
-
-        #clearButton:hover {
-            background-color: #d32f2f;
-        }
-
-        #copyButton {
-            background-color: #007bff;
-            color: white;
-        }
-
-        #copyButton:hover {
-            background-color: #0056b3;
-        }
-        /* --- RESPONSIVE --- */
-
+        /* --- RESPONSIVE (Simplified) --- */
         @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-                margin: 20px auto;
-            }
-
-            h1 {
-                font-size: 2em;
-            }
-
-            button {
-                font-size: 14px;
-            }
-
-            /* Redefine grid areas for single column */
-            .form-grid {
-                grid-template-columns: 1fr; /* Single column */
-                grid-template-areas:
-                    "role"
-                    "tone"
-                    "instruction"
-                    "length-type"
-                    "content-type"
-                    "format"
-                    "target-audience"
-                    "about"
-                    "inclusion"
-                    "exclusion"
-                    "input-data"
-                    "prompt-output"
-                    "buttons";
-            }
-             .row-container{
-              flex-direction: column;
-            }
+          .form-grid{
+              grid-template-columns: 1fr;
+              grid-template-areas:
+                "role"
+                "tone"
+                "instruction"
+                "length-type"
+                "length-value"
+                "content-type"
+                "format"
+                "target-audience"
+                "about"
+                "inclusion"
+                "exclusion"
+                "input-data"
+                "prompt-output"
+                "buttons";
+          }
         }
-       .row-container{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-
-        }
-
     </style>
 </head>
 <body>
@@ -370,39 +319,38 @@
                     <option value="Refine">Refine</option>
                 </select>
             </div>
-            
-            <div class="row-container length-type">
-                <div class = "input-group">
-                    <label for="length-type">Length Type</label>
-                    <input type="text" id="length-type-input" placeholder="Or enter a custom length type">
-                    <select id="length-type">
-                        <option value="" selected>-- Select a Length Type --</option>
-                        <option value="N Character">N Character</option>
-                        <option value="N Word">N Word</option>
-                        <option value="N Line">N Line</option>
-                        <option value="N Paragraph">N Paragraph</option>
-                        <option value="N Page">N Page</option>
-                        <option value="N Sentence">N Sentence</option>
-                        <option value="Quick">Quick</option>
-                        <option value="Short">Short</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Long">Long</option>
-                        <option value="Lengthy">Lengthy</option>
-                        <option value="Minmal">Minmal</option>
-                        <option value="Moderate">Moderate</option>
-                        <option value="Brief">Brief</option>
-                        <option value="Detailed">Detailed</option>
-                        <option value="In-depth">In-depth</option>
-                        <option value="Comprehensive">Comprehensive</option>
-                        <option value="Extended">Extended</option>
-                        <option value="Expanded">Expanded</option>
-                        <option value="Concise">Concise</option>
-                    </select>
-                </div>
-                <div class = "input-group">
-                    <label for="length-value">Length Value (or N):</label>
-                    <input type="text" id="length-value" placeholder="Enter value or leave blank">
-                </div>
+
+            <div class = "input-group length-type">
+                <label for="length-type">Length Type</label>
+                <input type="text" id="length-type-input" placeholder="Or enter a custom length type">
+                <select id="length-type">
+                    <option value="" selected>-- Select a Length Type --</option>
+                    <option value="N Character">N Character</option>
+                    <option value="N Word">N Word</option>
+                    <option value="N Line">N Line</option>
+                    <option value="N Paragraph">N Paragraph</option>
+                    <option value="N Page">N Page</option>
+                    <option value="N Sentence">N Sentence</option>
+                    <option value="Quick">Quick</option>
+                    <option value="Short">Short</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Long">Long</option>
+                    <option value="Lengthy">Lengthy</option>
+                    <option value="Minmal">Minmal</option>
+                    <option value="Moderate">Moderate</option>
+                    <option value="Brief">Brief</option>
+                    <option value="Detailed">Detailed</option>
+                    <option value="In-depth">In-depth</option>
+                    <option value="Comprehensive">Comprehensive</option>
+                    <option value="Extended">Extended</option>
+                    <option value="Expanded">Expanded</option>
+                    <option value="Concise">Concise</option>
+                </select>
+            </div>
+
+            <div class = "input-group length-value">
+                <label for="length-value">Length Value (or N):</label>
+                <input type="text" id="length-value" placeholder="Enter value or leave blank">
             </div>
             
             <div class="input-group content-type">
@@ -536,9 +484,11 @@
                 <textarea id="inputData" placeholder="Enter any additional input data"></textarea>
             </div>
 
+        <div class="prompt-putput">
             <label for="promptOutput">Generated Prompt:</label>
             <textarea id="promptOutput" placeholder="Your generated prompt will appear here" rows="5"></textarea>
-
+        </div>
+        
         </div>
 
         <div class="button-container">
