@@ -482,6 +482,8 @@
             output.select();
             document.execCommand('copy');
         }
+
+        document.getElementById('clearButton').addEventListener('click', clearInputs);
         
         function clearInputs() {
             // Clear text inputs
