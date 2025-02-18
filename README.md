@@ -1,2 +1,2 @@
 # prompt-generator
-A user-friendly web application that helps you create effective prompts for ChatGPT and other AI models, using the structure from Gyula Rabai's Cheat Sheet.  Features dropdown menus and custom input fields.
+Craft better prompts for ChatGPT! This simple web app uses Gyula Rabai's Cheat Sheet method to help you generate effective prompts with ease. Inspired by this [Reddit thread](https://www.reddit.com/r/ChatGPTPro/comments/1iog0my/chatgpt_cheat_sheet_this_is_how_i_use_chatgpt/).
